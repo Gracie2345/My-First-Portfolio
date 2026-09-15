@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* --- Base Reset --- */
 * {
     margin: 0;
     padding: 0;
@@ -7,10 +8,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-#Personal_logo {
-    width: 50px;
-    height: 50px;
-    filter: invert(1%);
+html {
+    scroll-behavior: smooth
+    ;
 }
 
 li {
@@ -26,24 +26,42 @@ a {
     text-decoration: none;
 }
 
-section {
-    background-color: rgb(245, 245, 245);
+button {
+    cursor: pointer;
 }
 
-.click {
+section {
+    background-color: rgb(146, 215, 224);
     transition: all 300ms ease;
 }
 
 
-.click:hover{
+
+/* --- Layout & Utilities --- */
+.container {
+    padding: 50px 0;
+    width: 100%;
+}
+
+.row {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+.click {
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.click:hover {
     transform: scale(1.1);
 }
 
-.click:active{
+.click:active {
     transform: scale(0.8);
 }
-
-
 
 .title {
     font-size: 76px;
@@ -52,64 +70,106 @@ section {
     line-height: 1;
 }
 
-
-
 .orange {
     color: #f06449 !important;
 }
 
-
-
-
-
-/* Landing Page Styling */
-#landing_page {
-    min-height: 100vh;
+.link_hover_effect {
+    position:relative;
 }
 
-.header {
+.link_hover_effect:after {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: -3px;
+    height:3px;
+    right: 0;
+    width: 0;
+    transition:all 300ms ease;
+}
+
+
+
+ .link_hover_effect_white:after {
+    background-color: white;
+}
+
+.link_hover_effect_black:after{
+    background-color: black;
+} 
+
+.link_hover_effect:hover:after {
+    left: 0;
     width: 100%;
-    max-width: 1000px;
-    padding: 0 30px;
+}
+
+/* --- Fix 1: Make the modal visible when open --- */
+.modal_open .modal {
+    z-index: 60;
+    box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.45);
+    visibility: visible; /* Changed from hidden to visible */
+}
+
+/* --- Fix 2: Clean up background fade out states --- */
+nav,
+.scroll,
+.header {
+    opacity: 1;
+    visibility: visible;
+    transition: all 600ms 800ms;
+}
+
+.modal_open nav,
+.modal_open .scroll,
+.modal_open .header {
+    opacity: 0;          /* Changed from 1 to 0 to fade out beautifully */
+    visibility: hidden;
+    transition: all 400ms;
 }
 
 
-.header_para {
+.dark_theme .title,
+.dark_theme .section_title,
+.dark_theme .nav_link_anchor,
+.dark_theme .fa-adjust,
+.dark_theme .header_para {
+    color: white !important;
+}
+
+.dark_theme section {
+    background-color: #242424
+}
+
+.dark_theme #personal_logo {
+    filter: none;
+}
+
+.dark_theme .scroll_icon {
+    border-color: white;
+}
+
+/* Fixed code */
+.dark_theme .scroll_icon:after,
+.dark_theme .link_hover_effect_black:after {
+    background-color: white;
+}
+
+
+
+.dark_theme .mail_btn {
+    background-color: white;
+    color: #242424;
+}
+
+
+
+.section_title {
+    text-align: center;
     font-size: 24px;
-    line-height: 2;
-    max-width: 450px;
+    margin-bottom: 60px;
 }
 
-
-.social_list {
-    margin-top: 16px;
-    display: flex;
-}
-
-.social_link {
-    background-color: #f06449;
-    color: white;
-    padding: 6px;
-    width:32px;
-    height: 32px;
-    font-size: 14px;
-    margin-right: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-
-
-
-
-
-
-/* Navigation Bar Styling */
+/* --- Navigation Bar Styling --- */
 nav {
     display: flex;
     justify-content: space-between;
@@ -119,6 +179,12 @@ nav {
     margin: 0 auto;
     padding: 0 20px;
     height: 100px;
+}
+
+#Personal_logo {
+    width: 50px;
+    height: 50px;
+    filter: invert(1%);
 }
 
 .nav_link_list {
@@ -135,6 +201,592 @@ nav {
     font-weight: 700;
 }
 
-.fa-adjust {
+
+
+
+/* --- Landing Page Styling --- */
+#landing_page {
+    min-height: 100vh;
+    position: relative; /* Fixed: keeps absolute elements inside landing page */
+}
+
+#landing_page,
+#projects,
+footer {
+    position: relative;
+    z-index: 2;         /* Forces all content wrappers to layer on top of the fixed stars */
+}
+
+.header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 30px;
+}
+
+.header_para {
+    font-size: 24px;
+    line-height: 2;
+    max-width: 450px;
+}
+
+.social_list {
+    margin-top: 16px;
+    display: flex;
+}
+
+.social_link {
+    background-color: #f06449;
+    color: white;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.mail_btn {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+    border-radius: 50%;
+    border: none;
+    background-color: #242424;
+    color: white;
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    z-index: 100;
+    box-shadow: 0 12 30px 0 rgba(0, 0, 0, 0.28)
+}
+
+.scroll {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.scroll_icon {
+    width: 20px;
+    height: 30px;
+    border: 2px solid #242424;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll_icon:after {
+    content: '';
+    width: 4px;
+    height: 6px;
+    background-color: #242424;
+    border-radius: 2px;
+    animation: scroll 1000ms infinite alternate-reverse;
+}
+
+@keyframes scroll {
+    0% { transform: translateY(3px); }
+    100% { transform: translateY(-3px); }
+}
+
+
+
+
+
+/* MODAL SECTION */
+/* MODAL SECTION */
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 950px;
+    height: 680px;
+    box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.45);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    z-index: 100;
+    visibility: hidden;
+    z-index: -1;
+    transition: visibility 1s, z-index 1s, box-shadow 0.5s ease;
+}
+
+
+/* Close Button Positioning */
+.modal_close_btn {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    z-index: 10;
+    transition: transform 300ms ease;
+}
+
+.modal_close_btn:hover {
+    transform: scale(1.15);
+}
+
+/* Layout Split Config */
+.modal_half {
+    width: 50%; /* Splits modal explicitly in half */
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    position:relative;
+    transition: all 300ms ease-in;
+}
+
+.modal_open .modal_about,
+.modal_open .modal_contact  {
+    transform: translateX(0%);
+}
+
+/* Left Half - Details */
+.modal_about {
+    background-color: #fcfcfc;
+    justify-content: flex-start;
+    transform: translateX(-100%)
+}
+
+.modal_title_about {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1c1d25;
+    margin-bottom: 8px;
+}
+
+.modal_sub_title_about {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1c1d25;
+    margin-bottom: 24px;
+}
+
+.modal_para {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+/* 4 Column Technology Grid */
+.modal_languages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 70px;
+}
+
+.modal_language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal_language_img {
+    width: 100%;
+    max-width: 48px;
+    object-fit: contain;
+}
+
+/* Right Half - Form Layout */
+.modal_contact {
+    background-color: #1c1d25;
+    color: white;
+    transform: translateX(110%)
+}
+
+.modal_contact_title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.modal_contact_subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #b5b5b5;
+    margin-bottom: 40px;
+}
+
+/* Form Styles */
+.modal_form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form_item {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_label {
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+}
+
+/* Minimal Line Inputs styling matching screenshot */
+.form_input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #555;
+    color: white;
+    padding: 8px 0;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    resize: none;
+    transition: border-color 300ms ease;
+}
+
+.form_input:focus {
+    border-color: #f06449;
+}
+
+/* Button Layout adjustments */
+.form_submit_btn {
+    background-color: #f06449;
+    color: white;
+    border: none;
+    padding: 16px 0;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 220px;
+    margin-top: 12px;
+}
+
+.modal_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;              /* Hidden natively by default */
+    pointer-events: none;    /* Blocks clicks when invisible */
+    z-index: -1;
+    transition: opacity 300ms ease;
+}
+
+.modal_overlay_loading {
+    background-color: #1c1d25; /* Matches right-side column panel color */
+    font-size: 80px;
+    color: white;
+}
+
+.modal_overlay_sucess {
+    background-color: #4bb543; /* Clean Green state color */
+    font-size: 28px;           /* Resized text layout so strings fit comfortably */
+    font-weight: 700;
+    text-align: center;
+    padding: 40px;
+    line-height: 1.4;
+}
+
+/* Toggle activation state overlay rule */
+.modal_overlay_visible {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    z-index: 10 !important;   /* Floats cleanly over form inputs container elements */
+    display: flex;
+}
+
+.fa-spinner {
+    animation: spinner 750ms infinite linear;
+}
+
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.modal_exit {
+    position: absolute;
+    top:30px;
+    right: 40px;
+    color: #ffff;
+    font-size: 36px;
+    z-index: 100;
+}
+
+
+
+
+
+
+/* --- Projects Section --- */
+.project_list {
+    padding-top: 40px;
+}
+
+.project {
+    margin-bottom: 135px;
+}
+
+.project:last-child {
+    margin-bottom: 40px;
+}
+
+.project_wrapper {
+    position: relative;
+    display: flex;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.project_img {
+    width: 100%;
+    transition: all 500ms ease;
+}
+
+
+
+.project_wrapper_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1c1d25;
+    opacity: 0;
+    transition: all 450ms ease;
+    z-index: 1;
+}
+
+.project_description {
+    position: absolute;
+    top: 50%;
+    left: 90px;
+    transform: translateY(-50%);
+    max-width: 550px;
+    color: white;
+    opacity: 0;
+    transition: opacity 300ms ease, transform 450ms ease;
+    z-index: 2;
+}
+
+/* --- Project Hover States --- */
+.project_wrapper:hover .project_img {
+    transform: scale(1.07);
+    filter: blur(5px);
+}
+
+.project_wrapper:hover .project_wrapper_bg {
+    opacity: 0.7;
+}
+
+.project_wrapper:hover .project_description {
+    opacity: 1;
+}
+
+/* --- Project Typography & Links --- */
+.project_description_title {
+    font-size: 40px;
+}
+
+.project_description_subtitle {
+    margin: 8px 0;
+}
+
+.project_description_para {
+    margin: 16px 0;
+}
+
+.project_description_links {
     font-size: 20px;
+}
+
+.project_description_link {
+    color: white;
+    font-size: 20px;
+    margin-right: 16px;
+}
+
+
+
+/* Footer */
+footer {
+    position: relative;
+    background-color: #242424;
+    display: flex;
+    padding: 6% 0;
+}
+
+
+.footer_row {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.footer_logo_img {
+    width: 50px;
+    height:50px;
+}
+
+.footer_social_list {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+
+.footer_social_link,
+.footer_copyright {
+    color: white;
+}
+
+
+
+
+
+/* SHAPES */
+/* ==========================================================================
+   PARALLAX BACKGROUND SHAPES
+   ========================================================================== */
+.shape {
+    position: fixed; /* Changed from fixed to absolute to move with page scroll */
+    z-index: 1;         /* Keeps them safely behind headers/buttons but above background */
+    pointer-events: none; /* Prevents stars from blocking clicks on your links */
+    opacity: 0.75;      /* Makes them blend softly into the background background */
+}
+
+/* Distribute your stars around the viewport and vary their sizes */
+.shape_0 {
+    top: 15vh;
+    left: 10vw;
+    width: 50px;
+}
+
+.shape_1 {
+    top: 20vh;
+    left: 80vw;
+    width: 65px;
+}
+
+.shape_2 {
+    top: 75vh;
+    left: 15vw;
+    width: 45px;
+}
+
+.shape_3 {
+    top: 80vh;
+    left: 85vw;
+    width: 55px;
+}
+
+.shape_4 {
+    top: 45vh;
+    left: 5vw;
+    width: 40px;
+}
+
+.shape_5 {
+    top: 10vh;
+    left: 45vw;
+    width: 60px;
+}
+
+.shape_6 {
+    top: 85vh;
+    left: 50vw;
+    width: 35px;
+}
+
+.shape_7 {
+    top: 50vh;
+    left: 90vw;
+    width: 50px;
+}
+
+.shape_8 {
+    top: 30vh;
+    left: 55vw;
+    width: 70px;
+}
+
+
+/* Small phones, tablets, large smart phones */
+
+@media (max-width: 768px) {
+    .title {
+        font-size:80px;
+    }
+
+    .header_para {
+        font-size: 20px;
+    }
+    .modal {
+        top: 0;
+        left: 0;
+        transform:none;
+        height: auto;
+        width: 100%;
+        flex-direction: column-reverse;
+        border-radius: 0;
+    }
+    .modal_half {
+        width: 100%;
+    }
+}
+
+/* Small Phone */
+@media (max-width:480px) {
+    .title {
+        font-size:52px;
+    }
+    .header_para {
+        font-size:18px;
+    }
+
+    .nav_link:first-child {
+        display: none;
+    }
+
+    .project_description_para {
+        display:none;
+    }
+
+    .project_description {
+        left: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .project_description_subtitle {
+        margin-bottom: 8px;
+    }
+
+    .modal_half{
+        padding:40px;
+    }
 }

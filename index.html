@@ -6,15 +6,24 @@
     <title>Grace Luvanda</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/64b5e2a022.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init({
+        publicKey: "ZknsjvdeKTNZgEJ3-", 
+    });
+    })();
+    </script>
 </head>
 <body>
-    <section id="landing_page">
+    <section id="landing_page" onmousemove="moveBackground(event)">
         <nav>
             <figure>
                 <img id="Personal_logo" src="Assets/100888f1-5cb7-4dbc-859a-77bfba20d9ce.png" alt="">
             </figure>
             <ul class = "nav_link_list">
-                <li class="nav_link">
+                <li class="nav_link" onclick="toggleModal()">
                     <a href="#" class="
                     nav_link_anchor
                     link_hover_effect
@@ -22,20 +31,20 @@
                     ">About</a>
                 </li>
                 <li class="nav_link">
-                    <a href="#" class="
+                    <a href="#projects" class="
                     nav_link_anchor
                     link_hover_effect
                     link_hover_effect_black
                     ">Projects</a>
                 </li>
-                <li class="nav_link">
+                <li class="nav_link" onclick="toggleModal()">
                     <a href="#" class="
                     nav_link_anchor
                     link_hover_effect
                     link_hover_effect_black
                     ">Contact</a>
                 </li>
-                <li class="nav_link">
+                <li class="nav_link click" onclick="toggleContrast()">
                     <a href="#" class="
                     nav_link_anchor
                     link_hover_effect
@@ -50,21 +59,286 @@
                 <h1 class="title orange">I'm Grace.</h1>
                 <p class="header_para">I'm a passionate <b class="orange"> frontend developer Engineer </b> with a strong passion for bulding web applications with great user experiences.
                     <br>
-                    Here is a bit more <b class="orange">about me</b>.
+                    Here is a bit more <b class="orange click" onclick="toggleModal()">about me</b>.
                 </p>
                 <div class="social_list">
-                    <a href="https://www.linkedin.com/in/grace-luvanda-791144271"  class="social_link click">
+                    <a href="https://www.linkedin.com/in/grace-luvanda-791144271" target="_blank" class="social_link click">
                         <i class="fa-brands fa-linkedin"></i>
                     </a>
-                    <a href=""  class="social_link click">
+                    <a href="https://github.com/Gracie2345/My-First-Portfolio.git" target="_blank" class="social_link click">
                         <i class="fa-brands fa-github"></i>
                     </a>
-                    <a href=""  class="social_link click">
+                    <a href="Assets/Grace's Resume.pdf" download class="social_link click" target="_blank">
                         <i class="fa-solid fa-file"></i>
                     </a>
                 </div>
             </div>
         </header>
+        <a href="#">
+            <button class="mail_btn click" onclick="toggleModal()">
+            <i class="fa-solid fa-envelope"></i>
+        </button> 
+        </a>
+        <a href="#projects" class="scroll">
+            <div class="scroll_icon"></div>
+        </a>
+
+        <div class="modal">
+            <div class="modal_half modal_about">
+                <h3 class="modal_title_about" onclick="toggleModal()">Here's a bit about me.</h3>
+                <h4 class="modal_sub_title_about">Frontend Software Engineer.</h4>
+                <p class="modal_para">
+                    I am a 23-year-old African American <span class="orange">frontend software engineer</span> with a strong passion for developing websites with great <span class="orange">user experiences</span>.
+                </p>
+                <p class="modal_para">
+                    I currently work on extremely difficult engineering problems and learn from a team consisting of some of the most <span class="orange">talented</span> and <span class="orange">experienced</span> software engineers every day.
+                </p>
+                <div class="modal_languages">
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="HTML5"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="CSS3"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="JavaScript"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="React"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="HTML5"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="CSS3"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="JavaScript"></figure>
+                    <figure class="modal_language"><img class="modal_language_img" src="Assets/html-5.jpg" alt="React"></figure>
+                </div>
+            </div>
+
+            <div class="modal_half modal_contact">
+                <i class="fa-solid fa-times modal_exit click" onclick="toggleModal()"></i>
+                <h3 class="modal_contact_title">Let's have a chat!</h3>
+                <h4 class="modal_contact_subtitle">I'm currently open to new opportunities.</h4>
+                
+                <form class="modal_form" onsubmit="contact(event)">
+                    <div class="form_item">
+                        <label class="form_label"><span class="orange">*</span> Name</label>
+                        <input type="text" class="form_input" name="user_name" required>
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label"><span class="orange">*</span> E-mail</label>
+                        <input type="email" class="form_input" name="user_email" required>
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label"><span class="orange">*</span> Message</label>
+                        <textarea class="form_input" rows="3" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="form_submit_btn click">Send it my way</button>
+                </form>
+                <div class="modal_overlay modal_overlay_loading">
+                    <i class="fa-solid fa-spinner"></i> 
+                </div>
+                <div class="modal_overlay modal_overlay_sucess">
+                    Thanks for the message! Looking forward to speaking to you soon.
+                </div>
+            </div>
+        </div>
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_0">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_1">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_2">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_3">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_4">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_5">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_6">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_7">
+        <img src="Assets/pngtree-goldan-3d-star-emoji-icon-png-image_10459561.png" class="shape shape_8">
     </section>
+
+    <section id="projects">
+    <div class="container">
+        <div class="row">
+            <h1 class="section_title">Here are some of my <span class="text_purple"> Projects </span> </h1>
+            <ul class="project_list">
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/Verse.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Ultraverse </h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, Vue, Vuex
+                            </h4>
+                            <p class="project_description_para">
+                                I built Ultraverse as my final project during my internship with Frontend Simplified. I turned a static website into a dynamic and interactive application using React, JavaScript, and Node.js. I also used different libraries to improve the website’s features and animations and used GitHub to manage my code and project updates.
+
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/Grace-Internship2" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://gracie2345.github.io/Grace-Internship2/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/Books.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Summarist</h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, Vue, Vuex
+                            </h4>
+                            <p class="project_description_para">
+                                I built Summarist as part of my Frontend Simplified virtual internship. I created a book summary application where users can sign up, search for books, view book summaries, and listen to audio summaries. I also worked with features like subscriptions, user settings, loading states, and a responsive design.
+
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/Advanced-Internship" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://advanced-internship-phi.vercel.app/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/AI.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Skinstric AI </h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, Next.js, Tailwind CSS
+                            </h4>
+                            <p class="project_description_para">
+                                I built a version of Skinstric.ai from scratch as part of my Frontend Simplified internship. I used Next.js and Tailwind CSS to create an AI-powered skincare platform with a clean and responsive design. I focused on building the user interface, creating interactive features, and making sure the website provided a smooth experience across different devices.
+
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/skinstric-ai" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://skinstric-ai-bay.vercel.app/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/Clone.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Treact Clone </h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, React, Tailwind CSS
+                            </h4>
+                            <p class="project_description_para">
+                                This clone is a test of my ability to recreate the landing page of another website. The clone includes the same assets, animations, dynamic components, and responsive design as the original.
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/Final-Project-" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://gracie2345.github.io/Final-Project-/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/Explorer.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Anime Explorer </h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, React, Tailwind CSS, API
+                            </h4>
+                            <p class="project_description_para">
+                                This project is an anime website I built using React, HTML, CSS, and JavaScript. It allows users to search for anime using an API, view anime details, and filter or sort the results. I also made the website responsive so it works well on desktop, tablet, and mobile.
+
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/my-app" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://my-app-chi-two-27.vercel.app/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="project">
+                    <div class="project_wrapper">
+                        <img src="Assets/Animee.png" class="project_img" alt="car subscription project">
+                        <div class="project_wrapper_bg"></div>
+                        <div class="project_description">
+                            <h3 class="project_description_title"> Anime Discovery App </h3>
+                            <h4 class="project_description_subtitle">
+                                html, css, JavaScript, React, Redux
+                            </h4>
+                            <p class="project_description_para">
+                                This project is an anime search website built using HTML, CSS, and JavaScript. It uses an external API to search for anime and display the results dynamically. I also added filtering, a loading state, and responsive design so the website works well on both desktop and mobile.
+
+                            </p>
+                            <div class="project_description_links">
+                                <a href="https://github.com/Gracie2345/Final-Project-2" target="_blank" class="project_description_link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                 <a href="https://gracie2345.github.io/Final-Project-2/" class="project_description_link">
+                                    <i class="fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+   </section>
+   <footer>
+    <div  class="container">
+        <div class="row footer_row">
+            <figure>
+                <img class="footer_logo_img" src="Assets/100888f1-5cb7-4dbc-859a-77bfba20d9ce.png" alt="">
+            </figure>
+            <div class="footer_social_list">
+                <a href="https://github.com/Gracie2345/My-First-Portfolio.git" class="
+                footer_social_link
+                link_hover_effect
+                link_hover_effect_white
+                ">
+                GitHub
+                </a>
+                <a href="#" target="_blank" class="
+                footer_social_link
+                link_hover_effect
+                link_hover_effect_white
+                ">
+                Contact
+                </a>
+                <a href="https://www.linkedin.com/in/grace-luvanda-791144271" oneclick="toggleModal()" class="
+                footer_social_link
+                link_hover_effect
+                link_hover_effect_white
+                ">
+                Linkedin
+                </a>
+                <a href="Assets/Grace's Resume.pdf" target="_blank" class="
+                footer_social_link
+                link_hover_effect
+                link_hover_effect_white
+                ">
+                Resume
+                </a>
+            </div>
+            <div class="footer_copyright"> Made by Grace Luvanda.</div>
+        </div>
+    </div>
+   </footer>
 </body>
 </html>
